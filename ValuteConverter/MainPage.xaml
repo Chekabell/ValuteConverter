@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ValuteConverter"
+             x:Class="ValuteConverter.MainPage">
+
+    <ContentPage.BindingContext>
+        <vm:ValuteConverterViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Padding="30,0"
+            Spacing="25">
+
+            <VerticalStackLayout Spacing="30">
+                <DatePicker HorizontalOptions="Center"
+                            MinimumDate="01/01/2000"
+                            x:Name="DateSelector"
+                            Date="{Binding SelectedDate}"
+                            IsEnabled="{Binding IsAvailable}" />
+                
+                <FlexLayout MaximumWidthRequest="500">
+                    <Picker WidthRequest="300"
+                                ItemsSource="{Binding Currencies}"
+                                SelectedItem="{Binding SelectedFromCurrency}"
+                                IsEnabled="{Binding IsAvailable}" />
+                    <Entry WidthRequest="100"
+                                HorizontalTextAlignment="End"
+                                Keyboard="Numeric"
+                                Text="{Binding InputAmount}" 
+                                IsEnabled="{Binding IsAvailable}" />
+                </FlexLayout>
+
+                <FlexLayout MaximumWidthRequest="500">
+                    <Picker WidthRequest="300"
+                                ItemsSource="{Binding Currencies}" 
+                                SelectedItem="{Binding SelectedToCurrency}"
+                                IsEnabled="{Binding IsAvailable}" />
+                    <Entry WidthRequest="100"
+                                HorizontalTextAlignment="End"
+                                Keyboard="Numeric"
+                                Text="{Binding ConvertedAmount}"
+                                IsEnabled="{Binding IsAvailable}" />
+                </FlexLayout>
+            </VerticalStackLayout>
+            <ActivityIndicator IsRunning="True" IsVisible="{Binding IsLoading}" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
